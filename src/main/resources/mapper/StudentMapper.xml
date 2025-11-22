@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.student.mapper.StudentMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="StudentResultMap" type="com.example.student.entity.Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="age" column="age"/>
+        <result property="major" column="major"/>
+        <result property="className" column="class_name"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="enrollmentDate" column="enrollment_date"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 查询所有学生 -->
+    <select id="selectAll" resultMap="StudentResultMap">
+        SELECT id, name, gender, age, major, class_name, phone, email, 
+               enrollment_date, create_time, update_time
+        FROM student
+        ORDER BY id
+    </select>
+
+    <!-- 根据ID查询学生 -->
+    <select id="selectById" resultMap="StudentResultMap">
+        SELECT id, name, gender, age, major, class_name, phone, email, 
+               enrollment_date, create_time, update_time
+        FROM student
+        WHERE id = #{id}
+    </select>
+
+    <!-- 新增学生 -->
+    <insert id="insert" parameterType="com.example.student.entity.Student" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO student (name, gender, age, major, class_name, phone, email, enrollment_date, create_time, update_time)
+        VALUES (#{name}, #{gender}, #{age}, #{major}, #{className}, #{phone}, #{email}, #{enrollmentDate}, NOW(), NOW())
+    </insert>
+
+    <!-- 更新学生信息 -->
+    <update id="update" parameterType="com.example.student.entity.Student">
+        UPDATE student
+        SET name = #{name},
+            gender = #{gender},
+            age = #{age},
+            major = #{major},
+            class_name = #{className},
+            phone = #{phone},
+            email = #{email},
+            enrollment_date = #{enrollmentDate},
+            update_time = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除学生 -->
+    <delete id="deleteById">
+        DELETE FROM student WHERE id = #{id}
+    </delete>
+
+</mapper>

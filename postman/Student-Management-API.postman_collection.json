@@ -1,0 +1,110 @@
+{
+  "info": {
+    "name": "Student Management API",
+    "_postman_id": "student-management-api",
+    "description": "学生管理系统 RESTful API 测试集合",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. 获取所有学生",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/students",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["students"]
+        },
+        "description": "获取所有学生列表"
+      },
+      "response": []
+    },
+    {
+      "name": "2. 根据ID获取学生",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/students/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["students", "1"]
+        },
+        "description": "根据学号获取学生信息"
+      },
+      "response": []
+    },
+    {
+      "name": "3. 创建新学生",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"赵六\",\n  \"gender\": \"男\",\n  \"age\": 20,\n  \"major\": \"计算机科学与技术\",\n  \"className\": \"计科2023-1班\",\n  \"phone\": \"13800138004\",\n  \"email\": \"zhaoliu@example.com\",\n  \"enrollmentDate\": \"2023-09-01\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/students",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["students"]
+        },
+        "description": "创建一个新学生"
+      },
+      "response": []
+    },
+    {
+      "name": "4. 更新学生信息",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"张三\",\n  \"gender\": \"男\",\n  \"age\": 21,\n  \"major\": \"计算机科学与技术\",\n  \"className\": \"计科2021-1班\",\n  \"phone\": \"13800138001\",\n  \"email\": \"zhangsan_new@example.com\",\n  \"enrollmentDate\": \"2021-09-01\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/students/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["students", "1"]
+        },
+        "description": "更新一个已存在的学生信息"
+      },
+      "response": []
+    },
+    {
+      "name": "5. 删除学生",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/students/1",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["students", "1"]
+        },
+        "description": "删除一个学生"
+      },
+      "response": []
+    }
+  ]
+}
