@@ -76,15 +76,15 @@ public class StudentController {
     public Result<Student> updateStudent(@PathVariable Long id, @RequestBody Student student) {
         try {
             // 检查学生是否存在
-            if (!studentService.exists(id)) {
-                return Result.error(404, "学生不存在");
+            Result<Void> existsCheck = checkStudentExists(id);
+            if (existsCheck != null) {
+                return Result.error(existsCheck.getCode(), existsCheck.getMessage());
             }
             
             student.setId(id);
             int rows = studentService.updateStudent(student);
             if (rows > 0) {
-                Student updatedStudent = studentService.getStudentById(id);
-                return Result.success("更新成功", updatedStudent);
+                return Result.success("更新成功", student);
             } else {
                 return Result.error("更新失败");
             }
@@ -101,8 +101,9 @@ public class StudentController {
     public Result<Void> deleteStudent(@PathVariable Long id) {
         try {
             // 检查学生是否存在
-            if (!studentService.exists(id)) {
-                return Result.error(404, "学生不存在");
+            Result<Void> existsCheck = checkStudentExists(id);
+            if (existsCheck != null) {
+                return existsCheck;
             }
             
             int rows = studentService.deleteStudent(id);
@@ -114,5 +115,17 @@ public class StudentController {
         } catch (Exception e) {
             return Result.error("删除失败：" + e.getMessage());
         }
+    }
+
+    /**
+     * 检查学生是否存在的辅助方法
+     * @param id 学生ID
+     * @return 如果学生不存在返回错误Result，否则返回null
+     */
+    private Result<Void> checkStudentExists(Long id) {
+        if (!studentService.exists(id)) {
+            return Result.error(404, "学生不存在");
+        }
+        return null;
     }
 }
